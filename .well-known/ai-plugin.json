@@ -1,9 +1,9 @@
 {
     "schema_version": "v1",
-    "name_for_human": "TODO Plugin (no auth)",
-    "name_for_model": "todo",
-    "description_for_human": "Plugin for managing a TODO list, you can add, remove and view your TODOs.",
-    "description_for_model": "Plugin for managing a TODO list, you can add, remove and view your TODOs.",
+    "name_for_human": "Calendar Wizard",
+    "name_for_model": "calendarWizard",
+    "description_for_human": "Plugin for creating calendar events via the ChatGPT chat interface",
+    "description_for_model": "Plugin for creating calendar events via the ChatGPT chat interface",
     "auth": {
       "type": "none"
     },
