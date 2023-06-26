@@ -1,18 +1,22 @@
 import json
+import os 
+import openai
 
 import quart
 import quart_cors
 from quart import request
-
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
+
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
+openai.api_key = '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'
 
 @app.get("/logo.png")
 async def plugin_logo():
     filename = 'logo.png'
     return await quart.send_file(filename, mimetype='image/png')
+
 
 @app.get("/.well-known/ai-plugin.json")
 async def plugin_manifest():
@@ -46,13 +50,16 @@ def authenticate_and_get_service():
 
 @app.route("/create-calendar-event", methods=['POST'])
 async def create_calendar_event():
+    request_data = await quart.request.get_json()
+    print(request_data)
     # Get the event details from the request
-    event_details = await request.get_json()
-    print('event_details', event_details)
+
 
     # Authenticate and get the Google Calendar service
     service = authenticate_and_get_service()
-    print('event_details', event_details)
+
+    # response = get_completion_from_messages(context)
+    # print(response)
 
     # Now you can use the service object to create a calendar event
     # You will need to implement the create_event function

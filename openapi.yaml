@@ -30,7 +30,7 @@ components:
       required:
       - event_details
       properties:
-        event_details:
-          type: object
-          description: The details of the event to create.
-          required: true    
+        title:
+          title: string
+          description: The title of the event
+          required: true  
