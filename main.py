@@ -4,13 +4,14 @@ import openai
 
 import quart
 import quart_cors
+import pickle
 from quart import request
 from google_auth_oauthlib.flow import InstalledAppFlow
+import datetime
 from googleapiclient.discovery import build
 
 
-app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
-openai.api_key = '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'
+app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")        
 
 @app.get("/logo.png")
 async def plugin_logo():
@@ -36,13 +37,26 @@ async def openapi_spec():
 SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 
 def authenticate_and_get_service():
-    flow = InstalledAppFlow.from_client_secrets_file('client_secrets.json', SCOPES)
+    creds = None
 
-    # This will prompt the user's browser to open a Google login screen
-    # After logging in and approving access, the user will be redirected to a local server
-    # The server will get the authorization code from the response and continue the flow
-    creds = flow.run_local_server(port=8080)
-    
+    # The file token.pickle stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first time.
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file('client_secrets.json', SCOPES)
+            creds = flow.run_local_server(port=8080)
+
+        # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
     # With the credentials, we can build the service
     service = build('calendar', 'v3', credentials=creds)
     
@@ -57,6 +71,24 @@ async def create_calendar_event():
 
     # Authenticate and get the Google Calendar service
     service = authenticate_and_get_service()
+
+
+        # Get the event details from the request
+    event_details = {
+        'summary': request_data['title']['name'],
+        'location': request_data['title']['location'],
+        'start': {
+            'dateTime': datetime.datetime.strptime(request_data['title']['date'] + ' ' + request_data['title']['time'], '%Y-%m-%d %H:%M').isoformat(),
+            'timeZone': 'GMT',  # replace with your time zone
+        },
+        'end': {
+            'dateTime': (datetime.datetime.strptime(request_data['title']['date'] + ' ' + request_data['title']['time'], '%Y-%m-%d %H:%M') + datetime.timedelta(hours=int(request_data['title']['duration'].split()[0]))).isoformat(),
+            'timeZone': 'GMT',  # replace with your time zone
+        },
+    }
+
+    # Create the event
+    event = service.events().insert(calendarId='primary', body=event_details).execute()
 
     # response = get_completion_from_messages(context)
     # print(response)
