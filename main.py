@@ -75,15 +75,13 @@ async def create_calendar_event():
 
         # Get the event details from the request
     event_details = {
-        'summary': request_data['title']['name'],
-        'location': request_data['title']['location'],
+        'summary': request_data['title'],
+        'location': request_data['location'],
         'start': {
-            'dateTime': datetime.datetime.strptime(request_data['title']['date'] + ' ' + request_data['title']['time'], '%Y-%m-%d %H:%M').isoformat(),
-            'timeZone': 'GMT',  # replace with your time zone
+            'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'], '%Y-%m-%d %H:%M').isoformat(),
         },
         'end': {
-            'dateTime': (datetime.datetime.strptime(request_data['title']['date'] + ' ' + request_data['title']['time'], '%Y-%m-%d %H:%M') + datetime.timedelta(hours=int(request_data['title']['duration'].split()[0]))).isoformat(),
-            'timeZone': 'GMT',  # replace with your time zone
+            'dateTime': (datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'], '%Y-%m-%d %H:%M') + datetime.timedelta(hours=int(request_data['duration'].split()[0]))).isoformat(),
         },
     }
 

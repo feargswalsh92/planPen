@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  title: Calendar Wizard
-  description: A plugin that allows users to create events in Google Calendar right from ChatGPT.
+  title: Plan Pen
+  description: A plugin that allows users to create calendar events right from ChatGPT.
   version: 'v1'
 servers:
   - url: http://localhost:5003
@@ -34,3 +34,20 @@ components:
           title: string
           description: The title of the event
           required: true  
+        date:
+          date: string
+          description: The date of the event
+          required: true
+        time:
+          time: string
+          description: The time of the event
+          required: true
+        duration:
+          duration: string
+          description: The duration of the event
+          required: true
+        location:
+           location: string
+           description: The location of the event
+           required: true
+           

@@ -1,7 +1,7 @@
 {
     "schema_version": "v1",
-    "name_for_human": "Calendar Wizard",
-    "name_for_model": "calendarWizard",
+    "name_for_human": "Plan Pen",
+    "name_for_model": "planPen",
     "description_for_human": "Plugin for creating calendar events via the ChatGPT chat interface",
     "description_for_model": "Plugin for creating calendar events via the ChatGPT chat interface",
     "auth": {
