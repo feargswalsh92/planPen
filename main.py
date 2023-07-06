@@ -73,7 +73,7 @@ async def create_calendar_event():
     service = authenticate_and_get_service()
 
 
-        # Get the event details from the request
+    # Get the event details from the request
     event_details = {
         'summary': request_data['title'],
         'location': request_data['location'],
