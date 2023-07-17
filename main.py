@@ -99,11 +99,7 @@ async def create_calendar_event():
     return quart.Response("Event created successfully", status=200)
 
 def main():
-<<<<<<< Updated upstream
-    app.run(debug=True, host="0.0.0.0", port=5003)
-=======
     app.run(debug=True, host="https://plan-pen.onrender.com")
->>>>>>> Stashed changes
 
 # Now you can use the service object to interact with the Google Calendar API
 
