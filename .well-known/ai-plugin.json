@@ -9,10 +9,17 @@
     },
     "api": {
       "type": "openapi",
+<<<<<<< Updated upstream
       "url": "http://localhost:5003/openapi.yaml",
       "is_user_authenticated": false
     },
     "logo_url": "http://localhost:5003/logo.png",
+=======
+      "url": "https://plan-pen.onrender.com/",
+      "is_user_authenticated": false
+    },
+    "logo_url": "https://plan-pen.onrender.com/logo.png",
+>>>>>>> Stashed changes
     "contact_email": "legal@example.com",
     "legal_info_url": "http://example.com/legal"
   }
