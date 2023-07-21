@@ -4,7 +4,7 @@ info:
   description: A plugin that allows users to create calendar events right from ChatGPT.
   version: 'v1'
 servers:
-  - url: https://plan-pen.onrender.com/
+  - url: https://plan-pen.onrender.com
 paths:
    /create-calendar-event:
     post:
