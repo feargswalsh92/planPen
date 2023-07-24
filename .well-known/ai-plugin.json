@@ -9,7 +9,7 @@
     },
     "api": {
       "type": "openapi",
-      "url": "https://plan-pen-6acfbe307ddb.herokuapp.com",
+      "url": "https://plan-pen-6acfbe307ddb.herokuapp.com/openai.yaml",
       "is_user_authenticated": false
     },
     "logo_url": "https://plan-pen-6acfbe307ddb.herokuapp.com/logo.png",
