@@ -38,7 +38,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 
 def authenticate_and_get_service():
     creds = None
-    
+
 
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first time.
@@ -100,7 +100,7 @@ async def create_calendar_event():
     return quart.Response("Event created successfully", status=200)
 
 def main():
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(debug=True, host="0.0.0.0")
 
 # Now you can use the service object to interact with the Google Calendar API
 
