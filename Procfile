@@ -1,1 +1,1 @@
-web hypercorn -b 0.0.0.0:5003 main:app
+web hypercorn -b 0.0.0.0:$PORT main:app
