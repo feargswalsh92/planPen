@@ -38,6 +38,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 
 def authenticate_and_get_service():
     creds = None
+    
 
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first time.
