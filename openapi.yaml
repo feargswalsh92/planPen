@@ -28,26 +28,24 @@ components:
     createCalendarEventRequest:
       type: object
       required:
-      - event_details
+      - title
+      - date
+      - time
+      - duration
+      - location
       properties:
         title:
-          title: string
+          type: string
           description: The title of the event
-          required: true  
         date:
-          date: string
+          type: string
           description: The date of the event
-          required: true
         time:
-          time: string
+          type: string
           description: The time of the event
-          required: true
         duration:
-          duration: string
+          type: string
           description: The duration of the event
-          required: true
         location:
-           location: string
-           description: The location of the event
-           required: true
-           
+          type: string
+          description: The location of the event

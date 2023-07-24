@@ -1,6 +1,5 @@
 import json
 import os 
-import openai
 
 import quart
 import quart_cors
