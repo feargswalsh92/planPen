@@ -54,7 +54,6 @@ def authenticate_and_get_service():
             creds = Credentials.from_authorized_user_info({
                 "client_id": os.environ['GOOGLE_CLIENT_ID'],
                 "client_secret": os.environ['GCP_SECRET'],
-                "refresh_token": os.environ['GOOGLE_REFRESH_TOKEN'],
                 "token_uri": "https://oauth2.googleapis.com/token"
             })
             # creds = flow.run_local_server(port=8080)
