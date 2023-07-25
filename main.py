@@ -8,6 +8,7 @@ from quart import request
 from google_auth_oauthlib.flow import InstalledAppFlow
 import datetime
 from googleapiclient.discovery import build
+from google.oauth2.credentials import Credentials
 
 
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")        
@@ -50,8 +51,13 @@ def authenticate_and_get_service():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('client_secrets.js', SCOPES)
-            creds = flow.run_local_server(port=8080)
+            creds = Credentials.from_authorized_user_info({
+                "client_id": os.environ['GOOGLE_CLIENT_ID'],
+                "client_secret": os.environ['GCP_SECRET'],
+                "refresh_token": os.environ['GOOGLE_REFRESH_TOKEN'],
+                "token_uri": "https://oauth2.googleapis.com/token"
+            })
+            # creds = flow.run_local_server(port=8080)
 
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
