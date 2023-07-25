@@ -130,8 +130,6 @@ dmypy.json
 .pyre/
 
 
-client_secrets.json
-
 token.pickle
 
 
