@@ -54,19 +54,19 @@ def authenticate_and_get_service():
             creds.refresh(Request())
         else:
             client_config = {
-             "installed": {
-                "client_id": os.getenv('GOOGLE_CLIENT_ID'),
-                "project_id": "calendarwizard-387304",
-                "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-                "token_uri": "https://oauth2.googleapis.com/token",
-                "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-                "client_secret": os.getenv('GCP_SECRET'),
-            "redirect_uris": [
-              "http://localhost:8080",
-              "http://localhost:8080/",
-        ]
-    }
-}
+                "installed": {
+                    "client_id": os.getenv('GOOGLE_CLIENT_ID'),
+                    "project_id": "calendarwizard-387304",
+                    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                    "token_uri": "https://oauth2.googleapis.com/token",
+                    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                    "client_secret": os.getenv('GCP_SECRET'),
+                "redirect_uris": [
+                    "http://localhost:8080",
+                    "http://localhost:8080/"
+                },
+                ]
+           }
 
             flow = InstalledAppFlow.from_client_config(client_config, SCOPES)
             creds = flow.run_local_server(port=8080)
