@@ -1,4 +1,6 @@
-module.exports = {
+const fs = require('fs');
+
+let clientSecrets = {
     web: {
         client_id: process.env.GOOGLE_CLIENT_ID,
         project_id: process.env.GOOGLE_PROJECT_ID,
@@ -10,3 +12,5 @@ module.exports = {
         javascript_origins:["https://chat.openai.com"],
     }
 }
+
+fs.writeFileSync('client_secrets.json', JSON.stringify(clientSecrets));
