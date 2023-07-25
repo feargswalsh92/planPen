@@ -53,8 +53,6 @@ def authenticate_and_get_service():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            with open('client_secrets.json', 'r') as f:
-                config = json.load(f)
             
             client_id = os.getenv('GOOGLE_CLIENT_ID')
             client_secret = os.getenv('GCP_SECRET')
