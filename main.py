@@ -64,8 +64,8 @@ def authenticate_and_get_service():
                 "redirect_uris": [
                     "http://localhost:8080",
                     "http://localhost:8080/"
+                ],
                 },
-                ]
            }
 
             flow = InstalledAppFlow.from_client_config(client_config, SCOPES)
