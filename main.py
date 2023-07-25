@@ -56,7 +56,7 @@ def authenticate_and_get_service():
             with open('client_secrets.json', 'r') as f:
                 config = json.load(f)
             
-            config['client_secret'] = os.environ('GCP_SECRET')
+            config['client_secret'] = os.getenv('GCP_SECRET')
             flow = InstalledAppFlow.from_client_secrets_file(config, SCOPES)
             creds = flow.run_local_server(port=8080)
 
