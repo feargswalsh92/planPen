@@ -7,10 +7,13 @@ import pickle
 from quart import request
 from google_auth_oauthlib.flow import InstalledAppFlow
 import datetime
+import json
 from googleapiclient.discovery import build
 
 
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")        
+
+
 
 @app.get("/logo.png")
 async def plugin_logo():
@@ -50,7 +53,11 @@ def authenticate_and_get_service():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('client_secrets.json', SCOPES)
+            with open('client_secrets.json', 'r') as f:
+                config = json.load(f)
+            
+            config['client_secret'] = os.environ('GCP_SECRET')
+            flow = InstalledAppFlow.from_client_secrets_file(config, SCOPES)
             creds = flow.run_local_server(port=8080)
 
         # Save the credentials for the next run
