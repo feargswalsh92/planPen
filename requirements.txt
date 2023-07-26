@@ -4,4 +4,3 @@ google_auth_oauthlib
 google-auth
 google-auth-httplib2 
 google-api-python-client
-openai
