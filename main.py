@@ -78,7 +78,7 @@ def authenticate_and_get_service():
               include_granted_scopes='true')
 
 
-        Save the credentials for the next run
+        # Save the credentials for the next run
         # with open('token.pickle', 'wb') as token:
             # pickle.dump(creds, token)
 
