@@ -69,7 +69,7 @@ def authenticate_and_get_service():
            }
 
             flow = Flow.from_client_config(client_config, SCOPES)
-            authorization_url, state = flow.authorization_url('https://accounts.google.com/o/oauth2/auth', access_type='offline', include_granted_scopes=True)
+            authorization_url = flow.authorization_url('https://accounts.google.com/o/oauth2/auth', access_type='offline', include_granted_scopes=True)
 
             return authorization_url
 
