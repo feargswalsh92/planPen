@@ -96,6 +96,7 @@ async def create_calendar_event():
 
     # Authenticate and get the Google Calendar service
     url = authenticate_and_get_service()
+    print(url)
     redirect(url)
 
 
