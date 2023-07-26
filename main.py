@@ -4,8 +4,8 @@ import os
 import quart
 import quart_cors
 import pickle
-from quart import request
-from google_auth_oauthlib.flow import InstalledAppFlow
+from quart import request, redirect
+from google_auth_oauthlib.flow import Flow
 import datetime
 import json
 from googleapiclient.discovery import build
@@ -68,8 +68,15 @@ def authenticate_and_get_service():
                 },
            }
 
-            flow = InstalledAppFlow.from_client_config(client_config, SCOPES)
-            creds = flow.run_local_server(port=8080, open_browser=True)
+            flow = Flow.from_client_config(client_config, SCOPES)
+            authorization_url, state = flow.authorization_url(
+              # Enable offline access so that you can refresh an access token without
+              # re-prompting the user for permission. Recommended for web server apps.
+              access_type='offline',
+              # Enable incremental authorization. Recommended as a best practice.
+              include_granted_scopes='true')
+            redirect(authorization_url)
+
 
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
