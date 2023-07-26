@@ -76,17 +76,16 @@ def authenticate_and_get_service():
               access_type='offline',
               # Enable incremental authorization. Recommended as a best practice.
               include_granted_scopes='true')
-            redirect(authorization_url)
 
 
-        # Save the credentials for the next run
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
+        Save the credentials for the next run
+        # with open('token.pickle', 'wb') as token:
+            # pickle.dump(creds, token)
 
     # With the credentials, we can build the service
-    service = build('calendar', 'v3', credentials=creds)
+    # service = build('calendar', 'v3', credentials=creds)
     
-    return service
+    return authorization_url
 
 @app.route("/create-calendar-event", methods=['POST'])
 async def create_calendar_event():
@@ -96,7 +95,10 @@ async def create_calendar_event():
 
 
     # Authenticate and get the Google Calendar service
-    service = authenticate_and_get_service()
+    url = authenticate_and_get_service()
+    redirect(url)
+
+
 
 
     # Get the event details from the request
