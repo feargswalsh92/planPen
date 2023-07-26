@@ -4,7 +4,8 @@ import os
 import quart
 import quart_cors
 import pickle
-from quart import request, redirect
+from quart import request
+from quart import redirect
 from google_auth_oauthlib.flow import Flow
 import datetime
 import json
