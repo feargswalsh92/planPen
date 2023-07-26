@@ -5,7 +5,7 @@ import quart
 import quart_cors
 import pickle
 from quart import request, redirect
-from google_auth_oauthlib.flow import InstalledAppFlow
+from google_auth_oauthlib.flow import Flow
 import datetime
 import json
 from googleapiclient.discovery import build
@@ -68,7 +68,7 @@ def authenticate_and_get_service():
                 },
            }
 
-            flow = InstalledAppFlow.from_client_config(client_config, SCOPES)
+            flow = Flow.from_client_config(client_config, SCOPES)
             authorization_url, state = flow.authorization_url('https://accounts.google.com/o/oauth2/auth', access_type='offline', include_granted_scopes='true')
             return authorization_url
 
