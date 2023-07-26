@@ -4,8 +4,8 @@ import os
 import quart
 import quart_cors
 import pickle
-from quart import request, redirect
-from google_auth_oauthlib.flow import Flow
+from quart import request
+from google_auth_oauthlib.flow import InstalledAppFlow
 import datetime
 import json
 from googleapiclient.discovery import build
@@ -68,10 +68,8 @@ def authenticate_and_get_service():
                 },
            }
 
-            flow = Flow.from_client_config(client_config, SCOPES)
-            authorization_url = flow.authorization_url('https://accounts.google.com/o/oauth2/auth', access_type='offline', include_granted_scopes=True)
-
-            return authorization_url
+            flow = InstalledAppFlow.from_client_config(client_config, SCOPES)
+            creds = flow.run_local_server(port=8080, open_browser=True)
 
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
@@ -90,9 +88,7 @@ async def create_calendar_event():
 
 
     # Authenticate and get the Google Calendar service
-    url = authenticate_and_get_service()
-
-    redirect(url)
+    service = authenticate_and_get_service()
 
 
     # Get the event details from the request
