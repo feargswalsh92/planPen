@@ -72,6 +72,7 @@ async def create_calendar_event():
     request_data = await request.get_json()
 
     service = authenticate_and_get_service()
+    logger.info(f"service": {service}")
     if isinstance(service, str):
         logger.info(f"Redirecting to: {service}")
         return redirect(service)
@@ -91,7 +92,7 @@ async def create_calendar_event():
         },
     }
 
-    event = service.events().insert(calendarId='primary', body=event_details).execute()
+    # event = service.events().insert(calendarId='primary', body=event_details).execute()
     logger.info("Event created successfully")
 
     return Response("Event created successfully", status=200)
