@@ -1,55 +1,42 @@
-import json
-import os 
-
-import quart
-import quart_cors
+import os
 import pickle
-from quart import request
-from quart import redirect
-from google_auth_oauthlib.flow import Flow
+import logging
 import datetime
-import json
+from typing import Dict
+from quart import Quart, request, send_file, Response, redirect
+from quart_cors import cors
+from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
 
+app = cors(Quart(__name__), allow_origin="https://chat.openai.com")
 
-app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")        
-
+SCOPES = ['https://www.googleapis.com/auth/calendar.events']
+logger = logging.getLogger(__name__)
 
 
 @app.get("/logo.png")
 async def plugin_logo():
-    filename = 'logo.png'
-    return await quart.send_file(filename, mimetype='image/png')
+    return await send_file('logo.png', mimetype='image/png')
 
 
 @app.get("/.well-known/ai-plugin.json")
 async def plugin_manifest():
-    host = request.headers['Host']
     with open("./.well-known/ai-plugin.json") as f:
-        text = f.read()
-        return quart.Response(text, mimetype="text/json")
+        return Response(f.read(), mimetype="text/json")
+
 
 @app.get("/openapi.yaml")
 async def openapi_spec():
-    host = request.headers['Host']
     with open("openapi.yaml") as f:
-        text = f.read()
-        return quart.Response(text, mimetype="text/yaml")
+        return Response(f.read(), mimetype="text/yaml")
 
-# The scope required to modify Google Calendar
-SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 
-def authenticate_and_get_service():
+def authenticate_and_get_service() -> str:
     creds = None
-
-
-    # The file token.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first time.
     if os.path.exists('token.pickle'):
         with open('token.pickle', 'rb') as token:
             creds = pickle.load(token)
 
-    # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
@@ -62,76 +49,58 @@ def authenticate_and_get_service():
                     "token_uri": "https://oauth2.googleapis.com/token",
                     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
                     "client_secret": os.getenv('GCP_SECRET'),
-                "redirect_uris": [
-                    "http://localhost:8080",
-                    "http://localhost:8080/"
-                ]
+                    "redirect_uris": [
+                        "http://localhost:8080",
+                        "http://localhost:8080/"
+                    ]
                 },
-           }
+            }
 
             flow = Flow.from_client_config(client_config, SCOPES)
             authorization_url, state = flow.authorization_url(
-              # Enable offline access so that you can refresh an access token without
-              # re-prompting the user for permission. Recommended for web server apps.
-              access_type='offline',
-              # Enable incremental authorization. Recommended as a best practice.
-              include_granted_scopes='true')
+                access_type='offline',
+                include_granted_scopes='true')
 
+            return authorization_url
 
-        # Save the credentials for the next run
-        # with open('token.pickle', 'wb') as token:
-            # pickle.dump(creds, token)
+    service = build('calendar', 'v3', credentials=creds)
+    return service
 
-    # With the credentials, we can build the service
-    # service = build('calendar', 'v3', credentials=creds)
-    
-    return authorization_url
 
 @app.route("/create-calendar-event", methods=['POST'])
 async def create_calendar_event():
-    request_data = await quart.request.get_json()
-    print(request_data)
-    # Get the event details from the request
+    request_data = await request.get_json()
 
+    service = authenticate_and_get_service()
+    if isinstance(service, str):
+        logger.info(f"Redirecting to: {service}")
+        return redirect(service)
 
-    # Authenticate and get the Google Calendar service
-    url = authenticate_and_get_service()
-    print(url)
-    redirect(url)
-
-
-
-
-    # Get the event details from the request
     event_details = {
         'summary': request_data['title'],
         'location': request_data['location'],
         'start': {
-            'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'], '%Y-%m-%d %H:%M').isoformat(),
+            'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
+                                                   '%Y-%m-%d %H:%M').isoformat(),
         },
         'end': {
-            'dateTime': (datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'], '%Y-%m-%d %H:%M') + datetime.timedelta(hours=int(request_data['duration'].split()[0]))).isoformat(),
+            'dateTime': (
+                    datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
+                                               '%Y-%m-%d %H:%M') + datetime.timedelta(
+                hours=int(request_data['duration'].split()[0]))).isoformat(),
         },
     }
 
-    # Create the event
     event = service.events().insert(calendarId='primary', body=event_details).execute()
+    logger.info("Event created successfully")
 
-    # response = get_completion_from_messages(context)
-    # print(response)
+    return Response("Event created successfully", status=200)
 
-    # Now you can use the service object to create a calendar event
-    # You will need to implement the create_event function
-    # This function should use the Google Calendar API to create an event with the provided details
-    # create_event(service, event_details)
-
-    return quart.Response("Event created successfully", status=200)
 
 def main():
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=False, host="0.0.0.0")
 
-# Now you can use the service object to interact with the Google Calendar API
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     main()
-
