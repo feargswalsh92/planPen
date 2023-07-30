@@ -73,9 +73,9 @@ async def create_calendar_event():
 
     service = authenticate_and_get_service()
     print(service)
-    # if isinstance(service, str):
-    #     logger.info(f"Redirecting to: {service}")
-    #     return redirect(service)
+    if isinstance(service, str):
+        logger.info(f"Redirecting to: {service}")
+        return redirect(service)
 
     # event_details = {
     #     'summary': request_data['title'],
