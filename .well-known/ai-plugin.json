@@ -8,8 +8,8 @@
       "type": "oauth",
       "client_url": "https://accounts.google.com/o/oauth2/auth",
       "authorization_url": "https://oauth2.googleapis.com/token",
-      "authorization_content_type": "application/json",
       "scope": "",
+      "authorization_content_type": "application/json"
     },
     "api": {
       "type": "openapi",
@@ -19,5 +19,5 @@
     "logo_url": "https://plan-pen-6acfbe307ddb.herokuapp.com/logo.png",
     "contact_email": "legal@example.com",
     "legal_info_url": "http://example.com/legal"
-  }
+}
   
