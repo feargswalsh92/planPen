@@ -7,9 +7,9 @@
     "auth": {
       "type": "oauth",
       "client_url": "https://accounts.google.com/o/oauth2/auth",
+      "scope": "",
       "authorization_url": "https://oauth2.googleapis.com/token",
-      "authorization_content_type": "application/json",
-      "scope": ""
+      "authorization_content_type": "application/json"
     },
     "api": {
       "type": "openapi",
