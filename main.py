@@ -72,9 +72,9 @@ async def create_calendar_event():
     request_data = await request.get_json()
 
     service = authenticate_and_get_service()
-    print(service)
     if isinstance(service, str):
-        logger.info(f"Redirecting to: {service}")
+        print('is string')
+        print(service)
         redirect(service)
 
     # event_details = {
