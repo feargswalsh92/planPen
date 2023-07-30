@@ -73,29 +73,29 @@ async def create_calendar_event():
 
     service = authenticate_and_get_service()
     print(service)
-    if isinstance(service, str):
-        logger.info(f"Redirecting to: {service}")
-        return redirect(service)
+    # if isinstance(service, str):
+    #     logger.info(f"Redirecting to: {service}")
+    #     return redirect(service)
 
-    event_details = {
-        'summary': request_data['title'],
-        'location': request_data['location'],
-        'start': {
-            'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
-                                                   '%Y-%m-%d %H:%M').isoformat(),
-        },
-        'end': {
-            'dateTime': (
-                    datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
-                                               '%Y-%m-%d %H:%M') + datetime.timedelta(
-                hours=int(request_data['duration'].split()[0]))).isoformat(),
-        },
-    }
+    # event_details = {
+    #     'summary': request_data['title'],
+    #     'location': request_data['location'],
+    #     'start': {
+    #         'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
+    #                                                '%Y-%m-%d %H:%M').isoformat(),
+    #     },
+    #     'end': {
+    #         'dateTime': (
+    #                 datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
+    #                                            '%Y-%m-%d %H:%M') + datetime.timedelta(
+    #             hours=int(request_data['duration'].split()[0]))).isoformat(),
+    #     },
+    # }
 
-    # event = service.events().insert(calendarId='primary', body=event_details).execute()
-    logger.info("Event created successfully")
+    # # event = service.events().insert(calendarId='primary', body=event_details).execute()
+    # logger.info("Event created successfully")
 
-    return Response("Event created successfully", status=200)
+    # return Response("Event created successfully", status=200)
 
 
 def main():
