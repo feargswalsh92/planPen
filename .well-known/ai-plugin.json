@@ -8,7 +8,6 @@
       "type": "oauth",
       "client_url": "https://plan-pen-6acfbe307ddb.herokuapp.com/oauth",
       "authorization_url": "https://plan-pen-6acfbe307ddb.herokuapp.com/auth/oauth_exchange",
-      "authorization_content_type": "application/json",
       "scope": "https://www.googleapis.com/auth/calendar.events"
     },
     "api": {
