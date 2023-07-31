@@ -10,9 +10,7 @@
       "authorization_url": "https://plan-pen-6acfbe307ddb.herokuapp.com/auth/oauth_exchange",
       "authorization_content_type": "text/json",
       "scope": "https://www.googleapis.com/auth/calendar.events",
-      "verification_tokens": {
-        "openai": "Replace_this_string_with_the_verification_token_generated_in_the_ChatGPT_UI"
-      }
+      "verification_tokens": {}
 
     },
     "api": {
