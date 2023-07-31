@@ -6,8 +6,8 @@
     "description_for_model": "Plugin for creating calendar events via the ChatGPT chat interface",
     "auth": {
       "type": "oauth",
-      "client_url": "https://oauth2.googleapis.com",
-      "authorization_url": "https://oauth2.googleapis.com/auth",
+      "client_url": "https://plan-pen-6acfbe307ddb.herokuapp.com/oauth",
+      "authorization_url": "https://plan-pen-6acfbe307ddb.herokuapp.com/auth/oauth_exchange",
       "authorization_content_type": "application/json",
       "scope": "https://www.googleapis.com/auth/calendar.events"
     },
