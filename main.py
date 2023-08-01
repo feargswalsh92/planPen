@@ -51,7 +51,10 @@ def authenticate_and_get_service() -> str:
                     "client_secret": os.getenv('GCP_SECRET'),
                     "redirect_uris": [
                         "http://localhost:8080",
-                        "http://localhost:8080/"
+                        "http://localhost:8080/",
+                        'https://plan-pen-6acfbe307ddb.herokuapp.com',
+                        'https://plan-pen-6acfbe307ddb.herokuapp.com'
+
                     ]
                 },
             }

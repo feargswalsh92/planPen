@@ -6,12 +6,13 @@
     "description_for_model": "Plugin for creating calendar events via the ChatGPT chat interface",
     "auth": {
       "type": "oauth",
-      "client_url": "https://plan-pen-6acfbe307ddb.herokuapp.com/oauth",
-      "authorization_url": "https://plan-pen-6acfbe307ddb.herokuapp.com/auth/oauth_exchange",
-      "authorization_content_type": "text/json",
+      "client_url": "{DOMAIN}/oauth",
+      "authorization_url": "{DOMAIN}/auth/oauth_exchange",
       "scope": "https://www.googleapis.com/auth/calendar.events",
-      "verification_tokens": {}
-
+      "authorization_content_type": "application/json",
+      "verification_tokens": {
+        "openai": "Replace_this_string_with_the_verification_token_generated_in_the_ChatGPT_UI"
+      }
     },
     "api": {
       "type": "openapi",
