@@ -49,6 +49,7 @@ def authenticate_and_get_service() -> str:
                     "token_uri": "https://oauth2.googleapis.com/token",
                     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
                     "client_secret": os.getenv('GCP_SECRET'),
+                    "scope": ['calendar.events'],
                     "redirect_uris": [
                         "http://localhost:8080",
                         "http://localhost:8080/",
