@@ -49,7 +49,7 @@ def authenticate_and_get_service() -> str:
                     "token_uri": "https://oauth2.googleapis.com/token",
                     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
                     "client_secret": os.getenv('GCP_SECRET'),
-                    "redirect_uri": 'https://6481149ef84208702f5388ab89672ef9.preview.pluginlab.ai/',
+                    "redirect_uri": 'https://6481149ef84208702f5388ab89672ef9.auth.portal-pluginlab.ai/oauth/handler',
                     "scope": ['https://www.googleapis.com/auth/calendar.events'],
                 },
             }
@@ -69,11 +69,11 @@ def authenticate_and_get_service() -> str:
 async def create_calendar_event():
     request_data = await request.get_json()
 
-    service = authenticate_and_get_service()
-    if isinstance(service, str):
-        print('is string')
-        print(service)
-        return redirect(service)
+    # service = authenticate_and_get_service()
+    # if isinstance(service, str):
+    #     print('is string')
+    #     print(service)
+    #     return redirect(service)
 
     event_details = {
         'summary': request_data['title'],
@@ -90,7 +90,7 @@ async def create_calendar_event():
         },
     }
 
-    # # event = service.events().insert(calendarId='primary', body=event_details).execute()
+    event = service.events().insert(calendarId='primary', body=event_details).execute()
     # logger.info("Event created successfully")
 
     return Response("Event created successfully", status=200)
