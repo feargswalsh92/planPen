@@ -64,7 +64,7 @@ def authenticate_and_get_service() -> str:
             flow = Flow.from_client_config(client_config, SCOPES)
             authorization_url, state = flow.authorization_url(
                 access_type='offline',
-                redirect_uri="https://6481149ef84208702f5388ab89672ef9.preview.pluginlab.ai/",
+                redirect_uri='https://6481149ef84208702f5388ab89672ef9.preview.pluginlab.ai/',
                 include_granted_scopes='true')
 
             return authorization_url
