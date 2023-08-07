@@ -49,7 +49,7 @@ def authenticate_and_get_service() -> str:
                     "token_uri": "https://oauth2.googleapis.com/token",
                     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
                     "client_secret": os.getenv('GCP_SECRET'),
-                    "redirect_uris": ['https://6481149ef84208702f5388ab89672ef9.preview.pluginlab.ai/'],
+                    "redirect_uri": 'https://6481149ef84208702f5388ab89672ef9.preview.pluginlab.ai/',
                     "scope": ['https://www.googleapis.com/auth/calendar.events'],
                 },
             }
@@ -57,7 +57,6 @@ def authenticate_and_get_service() -> str:
             flow = Flow.from_client_config(client_config, SCOPES)
             authorization_url, state = flow.authorization_url(
                 access_type='offline',
-                redirect_uri='https://6481149ef84208702f5388ab89672ef9.preview.pluginlab.ai/',
                 include_granted_scopes='true')
 
             return authorization_url
