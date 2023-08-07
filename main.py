@@ -50,14 +50,6 @@ def authenticate_and_get_service() -> str:
                     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
                     "client_secret": os.getenv('GCP_SECRET'),
                     "scope": ['https://www.googleapis.com/auth/calendar.events'],
-                    "redirect_uris": [
-                        "http://localhost:8080",
-                        "http://localhost:8080/",
-                        'https://plan-pen-6acfbe307ddb.herokuapp.com/',
-                        'https://plan-pen-6acfbe307ddb.herokuapp.com',
-                        'https://6481149ef84208702f5388ab89672ef9.preview.pluginlab.ai/',
-                        'https://6481149ef84208702f5388ab89672ef9.preview.pluginlab.ai'
-                    ]
                 },
             }
 
