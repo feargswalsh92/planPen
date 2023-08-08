@@ -77,7 +77,7 @@ async def create_calendar_event():
     else:
       token = None
     
-    creds = Credentials.from_authorized_user_info({'access_token': token, 'client_secret': os.getenv('GCP_SECRET'), 'client_id': os.getenv('CLIENT_ID')}, SCOPES)
+    creds = Credentials(token)
     service = build('calendar', 'v3', credentials=creds)
 
     event_details = {

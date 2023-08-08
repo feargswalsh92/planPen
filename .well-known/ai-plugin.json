@@ -11,7 +11,7 @@
       "scope": "https://www.googleapis.com/auth/calendar.events",
       "authorization_content_type": "application/json",
       "verification_tokens": {
-        "openai": "Replace_this_string_with_the_verification_token_generated_in_the_ChatGPT_UI"
+        "openai": "2108bfa2eb384a7fab4c83a9796ed858"
       }
     },
     "api": {
