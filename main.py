@@ -78,14 +78,13 @@ async def create_calendar_event():
       token = None
     
     creds = Credentials({
-        access_token:token,
-        refresh_token:token,
-        token_uri:'https://oauth2.googleapis.com/token',
-        client_id: 'b5a3a82cdb180dfbb5cf1cb868c065f5',
-        client_secret: os.getenv('PLUGINLAB_SECRET'),
+        token=token,
+        refresh_token=token,
+        token_uri='https://oauth2.googleapis.com/token',
+        client_id='b5a3a82cdb180dfbb5cf1cb868c065f5',
+        client_secret=os.getenv('PLUGINLAB_SECRET'),
     })
-    service = build('calendar', 'v3', credentials=creds)
-
+    service = build('calendar', 'v3', credentials=credstoken
     event_details = {
         'summary': request_data['title'],
         'location': request_data['location'],
