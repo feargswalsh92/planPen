@@ -68,7 +68,7 @@ def authenticate_and_get_service() -> str:
 @app.route("/create-calendar-event", methods=['POST'])
 async def create_calendar_event():
     request_data = await request.get_json()
-    print(request_data)
+    print("Request Headers:", request.headers)
 
     # service = authenticate_and_get_service()
     # if isinstance(service, str):
