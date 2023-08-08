@@ -77,7 +77,7 @@ async def create_calendar_event():
     else:
       token = None
     
-    creds = Credentials(token)
+    creds = Credentials(token=token)
     service = build('calendar', 'v3', credentials=creds)
 
     event_details = {
