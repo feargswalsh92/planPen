@@ -6,6 +6,7 @@ from typing import Dict
 from quart import Quart, request, send_file, Response, redirect
 from quart_cors import cors
 from google_auth_oauthlib.flow import Flow
+from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 
 app = cors(Quart(__name__), allow_origin="https://chat.openai.com")
@@ -70,11 +71,14 @@ async def create_calendar_event():
     request_data = await request.get_json()
     print("Request Headers:", request.headers)
 
-    # service = authenticate_and_get_service()
-    # if isinstance(service, str):
-    #     print('is string')
-    #     print(service)
-    #     return redirect(service)
+    authorization_header = request.headers.get('Authorization')
+    if authorization_header:
+      token = authorization_header.split("Bearer ")[1]
+    else:
+      token = None
+    
+    creds = Credentials.from_authorized_user_info({'access_token': token}, SCOPES)
+    service = build('calendar', 'v3', credentials=creds)
 
     event_details = {
         'summary': request_data['title'],
@@ -90,6 +94,8 @@ async def create_calendar_event():
                 hours=int(request_data['duration'].split()[0]))).isoformat(),
         },
     }
+
+    
 
     event = service.events().insert(calendarId='primary', body=event_details).execute()
     # logger.info("Event created successfully")
