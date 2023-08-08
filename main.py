@@ -80,7 +80,7 @@ async def create_calendar_event():
     creds = Credentials({
         access_token:token,
         refresh_token:token,
-        token_uri='https://oauth2.googleapis.com/token',
+        token_uri:'https://oauth2.googleapis.com/token',
         client_id: 'b5a3a82cdb180dfbb5cf1cb868c065f5',
         client_secret: os.getenv('PLUGINLAB_SECRET'),
     })
