@@ -21,6 +21,9 @@ auth = app.get_auth()
 
 print('auth', auth.__dict__)
 
+import pdb
+pdb.set_trace()
+
 
 app = cors(Quart(__name__), allow_origin="https://chat.openai.com")
 
