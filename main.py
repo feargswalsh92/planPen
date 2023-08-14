@@ -19,7 +19,7 @@ app = App(
 # to manage auth-related stuff, mostly members
 auth = app.get_auth()
 
-print('auth', auth)
+print('auth', auth.__dict__)
 
 
 app = cors(Quart(__name__), allow_origin="https://chat.openai.com")
