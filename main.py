@@ -9,6 +9,19 @@ from google_auth_oauthlib.flow import Flow
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 
+from pluginlab_admin import App
+
+app = App(
+    secret_key=os.getenv('PLUGINLAB_SECRET'),
+    plugin_id="b5a3a82cdb180dfbb5cf1cb868c065f5",
+)
+
+# to manage auth-related stuff, mostly members
+auth = app.get_auth()
+
+print('auth', auth)
+
+
 app = cors(Quart(__name__), allow_origin="https://chat.openai.com")
 
 SCOPES = ['https://www.googleapis.com/auth/calendar.events']
