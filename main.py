@@ -83,6 +83,8 @@ async def create_calendar_event():
     print("Request Headers:", request.headers)
 
     authorization_header = request.headers.get('Authorization')
+    mem_id = request.headers.get('X-Pluginlab-User-Id')
+    print(mem_id)
     if authorization_header:
       token = authorization_header.split("Bearer ")[1]
     else:
@@ -90,7 +92,7 @@ async def create_calendar_event():
     
     # payload = auth.verify_token(token)
 
-    identities = auth.get_member_identities('feargswalsh@gmail.com')
+    identities = auth.get_member_identities(mem_id)
 
     print(identities.__dict__)
 
