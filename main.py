@@ -19,9 +19,6 @@ app = App(
 # to manage auth-related stuff, mostly members
 auth = app.get_auth()
 
-import pdb
-pdb.set_trace()
-
 
 app = cors(Quart(__name__), allow_origin="https://chat.openai.com")
 
