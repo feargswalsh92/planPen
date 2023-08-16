@@ -13,7 +13,7 @@ from pluginlab_admin import App
 
 app = App(
     secret_key=os.getenv('PLUGINLAB_SECRET'),
-    plugin_id="b5a3a82cdb180dfbb5cf1cb868c065f5",
+    plugin_id="6481149ef84208702f5388ab89672ef9",
 )
 
 # to manage auth-related stuff, mostly members
@@ -92,12 +92,10 @@ async def create_calendar_event():
     
     # payload = auth.verify_token(token)
 
-    identities = auth.get_member_identities(mem_id)
+    identities = auth.get_member_by_identities(mem_id)
 
     print(identities.__dict__)
 
-
-    
     
     creds = Credentials(token=token)
     service = build('calendar', 'v3', credentials=creds)
