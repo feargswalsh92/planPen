@@ -88,7 +88,7 @@ async def create_calendar_event():
     else:
       token = None
     
-    payload = auth.verify_token(token)
+    # payload = auth.verify_token(token)
 
     identities = auth.get_member_identities('feargswalsh@gmail.com')
 
