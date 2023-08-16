@@ -19,7 +19,8 @@ app = App(
 # to manage auth-related stuff, mostly members
 auth = app.get_auth()
 
-print('auth', auth.__dict__)
+import pdb
+pdb.set_trace()
 
 
 app = cors(Quart(__name__), allow_origin="https://chat.openai.com")
@@ -89,6 +90,13 @@ async def create_calendar_event():
       token = authorization_header.split("Bearer ")[1]
     else:
       token = None
+    
+    payload = auth.verify_token(token)
+
+    identities = auth.get_member_identities(payload.uid)
+
+    print(identities.__dict__)
+
 
     
     
