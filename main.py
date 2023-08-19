@@ -94,9 +94,9 @@ async def create_calendar_event():
 
     identities = auth.get_member_identities(mem_id)
 
-    refreshed_identity = auth.refresh_member_identity_token(mem_id, "google")
+    print('identities', identities)
 
-    print("Google refreshed access token is ", refreshed_identity.refresh_token)
+    # refreshed_identity = auth.refresh_member_identity_token(mem_id, "google")
 
     
     creds = Credentials(token=token)
