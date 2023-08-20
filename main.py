@@ -108,12 +108,12 @@ async def create_calendar_event():
         'location': request_data['location'],
         'start': {
             'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
-                                                   '%m-%d %H:%M').isoformat(),
+                                                   '%m-%d-%Y %H:%M').isoformat(),
         },
         'end': {
             'dateTime': (
                     datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
-                                               '%m-%d %H:%M') + datetime.timedelta(
+                                               '%m-%d-%Y %H:%M') + datetime.timedelta(
                 hours=int(request_data['duration'].split()[0]))).isoformat(),
         },
     }
