@@ -99,19 +99,19 @@ async def create_calendar_event():
     # refreshed_identity = auth.refresh_member_identity_token(mem_id, "google")
 
     
-    creds = Credentials(token=token)
+    creds = Credentials(token=token, refresh_token=identites.refresh_token, token_uri="https://oauth2.googleapis.com/token")
     service = build('calendar', 'v3', credentials=creds)
     event_details = {
         'summary': request_data['title'],
         'location': request_data['location'],
         'start': {
             'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
-                                                   '%Y-%m-%d %H:%M').isoformat(),
+                                                   '%m-%d %H:%M').isoformat(),
         },
         'end': {
             'dateTime': (
                     datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
-                                               '%Y-%m-%d %H:%M') + datetime.timedelta(
+                                               '%m-%d %H:%M') + datetime.timedelta(
                 hours=int(request_data['duration'].split()[0]))).isoformat(),
         },
     }
