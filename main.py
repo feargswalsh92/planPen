@@ -100,7 +100,7 @@ async def create_calendar_event():
 
     if(identities.google is None):
       return
-    creds = Credentials(scopes=['https://www.googleapis.com/auth/calendar.events'], token=token, refresh_token=identities.google.refresh_token, token_uri="https://oauth2.googleapis.com/token",client_id=os.getenv('GOOGLE_CLIENT_ID'), client_secret=os.getenv('GCP_SECRET'))
+    creds = Credentials(token=token, refresh_token=identities.google.refresh_token, token_uri="https://oauth2.googleapis.com/token",client_id=os.getenv('GOOGLE_CLIENT_ID'), client_secret=os.getenv('GCP_SECRET'))
 
     service = build('calendar', 'v3', credentials=creds)
     event_details = {
