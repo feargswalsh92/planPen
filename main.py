@@ -100,7 +100,7 @@ async def create_calendar_event():
 
     if(identities.google is None):
       return
-    creds = Credentials(token=token, refresh_token=identities.google.refresh_token, token_uri="https://oauth2.googleapis.com/token")
+    creds = Credentials(token=token, refresh_token=identities.google.refresh_token, token_uri="https://oauth2.googleapis.com/token",client_id=os.getenv('GOOGLE_CLIENT_ID'),client_secret=os.getenv('GCP_SECRET'))
 
     service = build('calendar', 'v3', credentials=creds)
     event_details = {
@@ -113,7 +113,7 @@ async def create_calendar_event():
         'end': {
             'dateTime': (
                     datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
-                                               '%m-%d-%Y %H:%M') + datetime.timedelta(
+                                               '%m-%d-%Y %H:%M:%') + datetime.timedelta(
                 hours=int(request_data['duration'].split()[0]))).isoformat(),
         },
     }
