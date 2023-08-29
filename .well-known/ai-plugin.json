@@ -5,8 +5,15 @@
     "description_for_human": "Plugin for creating calendar events via the ChatGPT chat interface",
     "description_for_model": "Plugin for creating calendar events via the ChatGPT chat interface",
     "auth": {
-      "type": "oauth"
-    },
+      "authorization_content_type": "application/json",
+      "authorization_url": "https://auth.pluginlab.ai/oauth/token",
+      "client_url": "https://6481149ef84208702f5388ab89672ef9.auth.portal-pluginlab.ai/oauth/authorize",
+      "scope": "all",
+      "type": "oauth",
+      "verification_tokens": {
+      "openai": "64e415cae1da409e93ed0c2eccbf168e"
+      }
+      },
     "api": {
       "type": "openapi",
       "url": "https://plan-pen-6acfbe307ddb.herokuapp.com/openapi.yaml",
