@@ -4,6 +4,8 @@
     "name_for_model": "planPen",
     "description_for_human": "Plugin for creating calendar events via the ChatGPT chat interface",
     "description_for_model": "Plugin for creating calendar events via the ChatGPT chat interface",
+    "auth": {
+    },
     "api": {
       "type": "openapi",
       "url": "https://plan-pen-6acfbe307ddb.herokuapp.com/openapi.yaml",
