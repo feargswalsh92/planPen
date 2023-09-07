@@ -92,7 +92,7 @@ async def create_calendar_event():
     
     # payload = auth.verify_token(token)
 
-    identities = auth.get_member_identities('mem_a5bc95522344c5c065ac4a02dc6dfdb4e438943f')
+    identities = auth.get_member_identities(mem_id)
 
     print('identities', identities)
 
