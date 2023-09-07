@@ -13,7 +13,7 @@ from pluginlab_admin import App
 
 app = App(
     secret_key=os.getenv('PLUGINLAB_SECRET'),
-    plugin_id="6481149ef84208702f5388ab89672ef9",
+    plugin_id="5946f3207938eda5df21fb091c517e1c",
 )
 
 # to manage auth-related stuff, mostly members
