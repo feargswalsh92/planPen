@@ -95,8 +95,14 @@ async def create_calendar_event():
     
     # payload = auth.verify_token(token)
 
-    identities = auth.refresh_member_identity_token(mem_id, "google")
-    print('identities', identities)
+    try :
+         refreshed_identities = auth.refresh_member_identity_token(mem_id, "google")
+    except Exception as error:
+        print('error', error)
+        print('auth', auth)
+    
+
+    identities = auth.get_member_identities(mem_id)
 
     print('refresh_token', identities.google.refresh_token)
 
