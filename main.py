@@ -36,7 +36,7 @@ async def legal_page():
     return await send_file('legal.html', mimetype='text/html')
 
 @app.get("/privacy_policy")
-async def legal_page():
+async def privacy_policy():
     return await send_file('privacy_policy.html', mimetype='text/html')
 
 
