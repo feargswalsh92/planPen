@@ -133,10 +133,10 @@ async def create_calendar_event():
     
 
     event = service.events().insert(calendarId='primary', body=event_details).execute()
-    print('event', event)
+    html_link = event.get('htmlLink', 'Link not found')
     # logger.info("Event created successfully")
 
-    return Response(f"Event created successfully, you can view it here {event.htmlLink}", status=200)
+    return Response(f"Event created successfully, you can view it here {html_link}", status=200)
 
 def main():
     app.run(debug=False, host="0.0.0.0")
