@@ -136,7 +136,7 @@ async def create_calendar_event():
     print('event', event)
     # logger.info("Event created successfully")
 
-    return Response("Event created successfully", status=200)
+    return Response(f"Event created successfully, you can view it here {event.htmlLink}", status=200)
 
 def main():
     app.run(debug=False, host="0.0.0.0")
