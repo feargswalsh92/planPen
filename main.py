@@ -31,6 +31,10 @@ logger = logging.getLogger(__name__)
 async def plugin_logo():
     return await send_file('logo.png', mimetype='image/png')
 
+@app.get("/legal.html")
+async def plugin_logo():
+    return await send_file('legal.html', mimetype='text/html')
+
 
 @app.get("/.well-known/ai-plugin.json")
 async def plugin_manifest():
@@ -144,7 +148,7 @@ async def create_calendar_event():
         # logger.info("Event created successfully")
     
         return Response(f"Event created successfully, you can view it here {html_link}", status=200)
-        
+
     except KeyError as e:
         return Response(f"Missing key in request data: {e}", status=400)
     except ValueError as e:
