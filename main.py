@@ -133,6 +133,7 @@ async def create_calendar_event():
     
 
     event = service.events().insert(calendarId='primary', body=event_details).execute()
+    print('event', event.__dict__)
     # logger.info("Event created successfully")
 
     return Response("Event created successfully", status=200)
