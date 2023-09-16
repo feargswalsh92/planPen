@@ -96,6 +96,7 @@ async def create_calendar_event():
     # payload = auth.verify_token(token)
 
     identities = auth.get_member_identities(mem_id)
+    print('identities', identities)
 
     print('refresh_token', identities.google.refresh_token)
 
