@@ -35,6 +35,10 @@ async def plugin_logo():
 async def legal_page():
     return await send_file('legal.html', mimetype='text/html')
 
+@app.get("/privacy_policy")
+async def legal_page():
+    return await send_file('privacy_policy.html', mimetype='text/html')
+
 
 @app.get("/.well-known/ai-plugin.json")
 async def plugin_manifest():
