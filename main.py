@@ -31,8 +31,8 @@ logger = logging.getLogger(__name__)
 async def plugin_logo():
     return await send_file('logo.png', mimetype='image/png')
 
-@app.get("/legal.html")
-async def plugin_logo():
+@app.get("/legal")
+async def legal_page():
     return await send_file('legal.html', mimetype='text/html')
 
 
