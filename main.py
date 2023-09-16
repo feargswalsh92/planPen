@@ -2,6 +2,7 @@ import os
 import pickle
 import logging
 import datetime
+import time
 from typing import Dict
 from quart import Quart, request, send_file, Response, redirect
 from quart_cors import cors
@@ -82,6 +83,8 @@ async def create_calendar_event():
     request_data = await request.get_json()
     print("Request Headers:", request.headers)
 
+    time_zone = time.tzname[0]
+
     authorization_header = request.headers.get('Authorization')
     mem_id = request.headers.get('X-Pluginlab-User-Id')
     print(mem_id)
@@ -109,14 +112,14 @@ async def create_calendar_event():
         'start': {
             'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
                                                    '%m-%d-%Y %H:%M').isoformat(),
-            'timeZone': 'America/Los_Angeles',
+            'timeZone': time_zone,
         },
         'end': {
             'dateTime': (
                     datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
                                                '%m-%d-%Y %H:%M') + datetime.timedelta(
                 hours=int(request_data['duration'].split()[0]))).isoformat(),
-            'timeZone': 'America/Los_Angeles',
+            'timeZone': time_zone,
         },
     }
 
