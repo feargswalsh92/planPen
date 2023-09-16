@@ -80,63 +80,77 @@ def authenticate_and_get_service() -> str:
 
 @app.route("/create-calendar-event", methods=['POST'])
 async def create_calendar_event():
-    request_data = await request.get_json()
-    print("Request Headers:", request.headers)
-
-    time_zone = time.tzname[0]
-
-    authorization_header = request.headers.get('Authorization')
-    mem_id = request.headers.get('X-Pluginlab-User-Id')
-    print(mem_id)
-    if authorization_header:
-      token = authorization_header.split("Bearer ")[1]
-    else:
-      token = None
+    try:
+        request_data = await request.get_json()
+        print("Request Headers:", request.headers)
     
-    # payload = auth.verify_token(token)
-
-    try :
-         refreshed_identities = auth.refresh_member_identity_token(mem_id, "google")
-    except Exception as error:
-        print('error', error)
-        print('auth', auth)
+        time_zone = time.tzname[0]
     
-
-    identities = auth.get_member_identities(mem_id)
-
-    print('refresh_token', identities.google.refresh_token)
-
-    # refreshed_identity = auth.refresh_member_identity_token(mem_id, "google")
-
-    if(identities.google is None):
-      return
-    creds = Credentials(token=identities.google.access_token, refresh_token=identities.google.refresh_token, token_uri="https://oauth2.googleapis.com/token",client_id=os.getenv('GOOGLE_CLIENT_ID'), client_secret=os.getenv('GCP_SECRET'))
-
-    service = build('calendar', 'v3', credentials=creds)
-    event_details = {
-        'summary': request_data['title'],
-        'location': request_data['location'],
-        'start': {
-            'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
-                                                   '%m-%d-%Y %H:%M').isoformat(),
-            'timeZone': time_zone,
-        },
-        'end': {
-            'dateTime': (
-                    datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
-                                               '%m-%d-%Y %H:%M') + datetime.timedelta(
-                hours=int(request_data['duration'].split()[0]))).isoformat(),
-            'timeZone': time_zone,
-        },
-    }
-
+        authorization_header = request.headers.get('Authorization')
+        mem_id = request.headers.get('X-Pluginlab-User-Id')
+        print(mem_id)
+        if authorization_header:
+          token = authorization_header.split("Bearer ")[1]
+        else:
+          token = None
+        
+        # payload = auth.verify_token(token)
     
-
-    event = service.events().insert(calendarId='primary', body=event_details).execute()
-    html_link = event.get('htmlLink', 'Link not found')
-    # logger.info("Event created successfully")
-
-    return Response(f"Event created successfully, you can view it here {html_link}", status=200)
+        try :
+             refreshed_identities = auth.refresh_member_identity_token(mem_id, "google")
+        except Exception as error:
+            print('error', error)
+            print('auth', auth)
+        
+    
+        identities = auth.get_member_identities(mem_id)
+    
+        print('refresh_token', identities.google.refresh_token)
+    
+        # refreshed_identity = auth.refresh_member_identity_token(mem_id, "google")
+    
+        if(identities.google is None):
+          return
+        creds = Credentials(
+            token=identities.google.access_token,
+            refresh_token=identities.google.refresh_token,
+            token_uri="https://oauth2.googleapis.com/token",
+            client_id=os.getenv('GOOGLE_CLIENT_ID'),
+            client_secret=os.getenv('GCP_SECRET')
+        )
+    
+        service = build('calendar', 'v3', credentials=creds)
+        event_details = {
+            'summary': request_data['title'],
+            'location': request_data['location'],
+            'start': {
+                'dateTime': datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
+                                                       '%m-%d-%Y %H:%M').isoformat(),
+                'timeZone': time_zone,
+            },
+            'end': {
+                'dateTime': (
+                        datetime.datetime.strptime(request_data['date'] + ' ' + request_data['time'],
+                                                   '%m-%d-%Y %H:%M') + datetime.timedelta(
+                    hours=int(request_data['duration'].split()[0]))).isoformat(),
+                'timeZone': time_zone,
+            },
+        }
+    
+        
+    
+        event = service.events().insert(calendarId='primary', body=event_details).execute()
+        html_link = event.get('htmlLink', 'Link not found')
+        # logger.info("Event created successfully")
+    
+        return Response(f"Event created successfully, you can view it here {html_link}", status=200)
+        
+    except KeyError as e:
+        return Response(f"Missing key in request data: {e}", status=400)
+    except ValueError as e:
+        return Response(f"Value error: {e}", status=400)
+    except Exception as e:
+        return Response(f"An unexpected error occurred: {e}", status=500)
 
 def main():
     app.run(debug=False, host="0.0.0.0")
