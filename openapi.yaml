@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Plan Pen
-  description: A plugin that allows users to create calendar events right from ChatGPT.
+  description: Un-clunk your calendars.
   version: 'v1'
 servers:
   - url: https://plan-pen-6acfbe307ddb.herokuapp.com

@@ -2,8 +2,8 @@
     "schema_version": "v1",
     "name_for_human": "Plan Pen",
     "name_for_model": "planPen",
-    "description_for_human": "Plugin for creating calendar events via the ChatGPT chat interface",
-    "description_for_model": "Plugin for creating calendar events via the ChatGPT chat interface",
+    "description_for_human": "Un-clunk your calendar",
+    "description_for_model": "Un-clunk your calendar",
     "auth": {
       "authorization_content_type": "application/json",
       "authorization_url": "https://auth.pluginlab.ai/oauth/token",
