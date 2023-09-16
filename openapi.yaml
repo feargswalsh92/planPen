@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Plan Pen
-  description: Un-clunk your calendars.
+  description: Un-clunk your calendar.
   version: 'v1'
 servers:
   - url: https://plan-pen-6acfbe307ddb.herokuapp.com
